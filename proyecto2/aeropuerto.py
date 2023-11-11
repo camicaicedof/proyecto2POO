@@ -19,12 +19,14 @@ class Aeropuerto:
         self.vuelos.append(vuelo)
 
     def printDestinos(self):
+        l=[]
         if not self.vuelos:
-            print("No hay vuelos")
+            l.append("No hay vuelos")
         else:
-            for i, vuelo in enumerate(self.vuelos, 1):
-                print(f"{i}.")
-                vuelo.printVuelo()
+            for vuelo in enumerate(self.vuelos, 1):
+                #print(f"{i}.")
+                l.append(vuelo.printVuelo())
+        return l
 
     def disponibilidadVuelos(self):
         return bool(self.vuelos)

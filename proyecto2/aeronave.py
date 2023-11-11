@@ -20,20 +20,24 @@ class Aeronave:
         self.mediador.enviarMensaje(mensaje, self)
 
     def despegar(self):
-        print(f"{self.marca}: Despegando.")
+        x=(f"{self.marca}: Despegando.")
         self.enviarMensaje(f"Despegando {self.marca}")
+        return x
 
     def aterrizar(self):
-        print(f"{self.marca}: Aterrizando.")
+        y=(f"{self.marca}: Aterrizando.")
         self.enviarMensaje(f"Aterrizando {self.marca}")
-
+        return y
+    
     def actualizarPosicion(self, mensaje):
-        print(f"{self.marca}: Actualizando posición a {mensaje}")
+        z=(f"{self.marca}: Actualizando posición a {mensaje}")
         self.enviarMensaje(f"Nueva posición: {self.marca} {mensaje}")
-
+        return z
+    
     def recibirMensaje(self, mensaje):
-        print(f"{self.marca} recibió mensaje: {mensaje}")
-
+        w=(f"{self.marca} recibió mensaje: {mensaje}")
+        return w
+    
     def asignarPuertaDeEmbarque(self, puerta, cod, hora):
         print(f"{self.marca} se dirige a la puerta de embarque: {puerta} para el vuelo #{cod} Hora: {hora}")
 
@@ -53,8 +57,9 @@ class Aeronave:
         self.tripulantes.append(t)
 
     def printInfo(self):
-        print(f"Marca: {self.marca}")
-        print(f"Capacidad: {self.capacidad}")
+        x=(f"Marca: {self.marca}")
+        y=(f"Capacidad: {self.capacidad}")
+        return [x,y]
 
     def eliminarVuelo(self):
         self.vuelos.pop()
