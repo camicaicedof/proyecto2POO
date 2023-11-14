@@ -27,3 +27,4 @@ Para ejecutar el programa debes tener instalado streamlit en tu computador, debe
 
 ## Link del diagrama UML:
 https://drive.google.com/file/d/1Ueww-MyM6l1rhOL7x3iLbsQL-6VgoxFg/view?usp=sharing
+#### Juan Diego Valencia y María Camila Caicedo
