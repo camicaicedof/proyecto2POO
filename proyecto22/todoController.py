@@ -25,10 +25,34 @@ class TodoController:
             st.session_state['pasajeroC'] = 0
         if 'listaJets' not in st.session_state:
             st.session_state['listaJets'] = 0
-        #if 'option' not in st.session_state:
-        #    st.session_state['option'] = 'Ver todas las tareas'
+    
 
     def showMenu(self):
+        """
+    Muestra un menú interactivo y ejecuta la acción correspondiente según la opción seleccionada.
+
+    Uso:
+    showMenu(self)
+
+    Parámetros:
+    - self: La instancia de la clase que llama a la función.
+
+    Descripción:
+    Esta función muestra un menú interactivo que permite al usuario seleccionar diversas opciones relacionadas con la gestión de vuelos, aerolíneas y pasajeros. Dependiendo de la opción seleccionada, se ejecuta la acción correspondiente.
+
+    Opciones del menú y sus acciones:
+    - "Modificar Vuelos": Crea un nuevo vuelo.
+    - "Consultar información": Muestra un menú de consulta.
+    - "Agregar Naves": Muestra un menú de gestión de aeronaves.
+    - "Simular": Inicia la simulación del sistema.
+    - "Reservar vuelo": Crea un nuevo pasajero y reserva un vuelo.
+    - "Añadir aerolíneas": Crea una nueva aerolínea en el sistema.
+    - "Consultar país": Realiza una consulta sobre un país.
+    - "Inicio": Muestra información sobre el aeropuerto.
+
+    La opción seleccionada se guarda en el estado de la sesión para su posterior referencia.
+
+    """
         option = self.view.menu()
         st.session_state['option'] = option
         if option == "Modificar Vuelos":
@@ -47,12 +71,38 @@ class TodoController:
             self.consultarPais()
         elif option == "Inicio":
             self.view.aeropuertoText()
-        """elif option == 'Marcar una tarea como completada':
-            self.checkTask()
-        elif option == 'Eliminar una tarea':
-            self.removeTask() """
+
 
     def showMenuConsulta(self):
+        """
+    Muestra un menú de consulta interactivo y ejecuta la acción correspondiente según la opción seleccionada.
+
+    Uso:
+    showMenuConsulta(self)
+
+    Parámetros:
+    - self: La instancia de la clase que llama a la función.
+
+    Descripción:
+    Esta función muestra un menú interactivo de consulta que permite al usuario seleccionar diversas opciones relacionadas con la obtención de información del sistema. Dependiendo de la opción seleccionada, se ejecuta la acción correspondiente.
+
+    Opciones del menú de consulta y sus acciones:
+    - "Vuelos": Lista todos los vuelos disponibles.
+    - "Puertas de Embarque": Lista todas las puertas de embarque.
+    - "Aeronaves": Lista todas las aeronaves registradas.
+    - "Pasajeros": Lista todos los pasajeros registrados.
+    - "Reserva": Lista la información de reservas.
+
+    La opción seleccionada se guarda en el estado de la sesión para su posterior referencia.
+
+    Acciones:
+    - Si la opción es "Vuelos", se llama a la función listAllVuelos().
+    - Si la opción es "Puertas de Embarque", se llama a la función listAllPuertas().
+    - Si la opción es "Aeronaves", se llama a la función listAllAeronaves().
+    - Si la opción es "Pasajeros", se llama a la función listAllPasajeros().
+    - Si la opción es "Reserva", se llama a la función listReserva().
+    
+    """
         option =self.view.menuConsultar()
         st.session_state['opcionConsulta'] = option
         if option=="Vuelos":
@@ -68,6 +118,28 @@ class TodoController:
 
     
     def showMenuAeronaves(self):
+        """
+        Muestra un menú interactivo para agregar diferentes tipos de aeronaves y ejecuta la acción correspondiente.
+
+        Uso:
+        showMenuAeronaves(self)
+
+        Parámetros:
+        - self: Instancia de la clase que llama a la función.
+
+        Descripción:
+        Muestra un menú interactivo donde el usuario elige el tipo de aeronave a agregar al sistema.
+
+        Opciones del menú y acciones:
+        - "Avión": Crea una nueva instancia de avión.
+        - "Helicóptero": Crea una nueva instancia de helicóptero.
+        - "Jet": Crea una nueva instancia de jet.
+
+        La opción seleccionada se guarda en el estado de la sesión.
+
+        Acciones:
+        - Llama a la función correspondiente según la opción seleccionada.
+        """    
         option =self.view.menuNaves()
         st.session_state['opcionAvion'] = option
         if option=="Avión":
@@ -78,19 +150,23 @@ class TodoController:
             self.createNewJet()
 #-----------------------------------------------------------------------------------------------------#
     def increaseTaskCount(self):
+        # Incrementa el numero de vuelos
         st.session_state['taskCount'] = st.session_state['taskCount'] + 1
         return st.session_state['taskCount']
     
     def increaseAeronavesCount(self):
+        # Incrementa el numero de naves
         st.session_state['aeronavesC'] = st.session_state['aeronavesC'] + 1
         return st.session_state['aeronavesC']
     
     def increasePasajeroCount(self):
+        # Incrementa el numero de pasajeros
         st.session_state['pasajeroC'] = st.session_state['pasajeroC'] + 1
         return st.session_state['pasajeroC']
 
 #-----------------------------------------------------------------------------------------------------#
     def createNewVuelo(self):
+        #Crea un vuelos mediante la comuniación con el modelo y el view
         flag=self.aeropuerto.disponibilidadAerolineas()
 
         data = self.view.addNewVuelo(flag,self.aeropuerto.aerolinea)
@@ -110,6 +186,7 @@ class TodoController:
 
 
     def createNewAvion(self):
+        #Crea un aviones mediante la comuniación con el modelo y el view
         data = self.view.addNewAvion()
         if data:
             taskId = self.increaseAeronavesCount()
@@ -117,6 +194,7 @@ class TodoController:
             self.aeropuerto.agregarAeronave(taskId, newAvion)
 
     def createNewJet(self):
+        #Crea un Jets mediante la comuniación con el modelo y el view
         data = self.view.addNewJet()
         if data:
             taskId = self.increaseAeronavesCount()
@@ -124,6 +202,7 @@ class TodoController:
             self.aeropuerto.agregarAeronave(taskId, newJet)
 
     def createNewHelicoptero(self):
+        #Crea un Helicoptero mediante la comuniación con el modelo y el view
         data = self.view.addNewHelicoptero()
         if data:
             taskId = self.increaseAeronavesCount()
@@ -131,6 +210,7 @@ class TodoController:
             self.aeropuerto.agregarAeronave(taskId, newHelicoptero)
 
     def createNewPasajero(self):
+        #Crea un pasjeros mediante la comuniación con el modelo y el view
         dispo = self.aeropuerto.disponibilidadVuelos()
         allVuelos = self.aeropuerto.printDestinosReserva()
         d = self.view.addNewPasajero(dispo,allVuelos)
@@ -141,6 +221,7 @@ class TodoController:
             self.aeropuerto.agregarPasajero(newPasajero, d["nombre"])
 
     def createNewAerolinea(self):
+        #Crea una aerolinea  mediante la comuniación con el modelo y el view
         data=self.view.addNewAerolinea()
         if data:
             newAerolinea= Aerolinea(data["nombre"])
@@ -148,32 +229,39 @@ class TodoController:
 #-----------------------------------------------------------------------------------------------------#
 
     def listAllVuelosReserva(self):
+        # Envia al view la información de los vuelos para mostrarla
         allVuelos = self.aeropuerto.printDestinosReserva()
         index = self.view.listAllVuelosReserva(allVuelos)
         return index
 
     def obtenerSimulacion(self):
+         # Envia al view la información de la simulacion para mostrarla
         self.aeropuerto.asignarVuelo()
         l=self.aeropuerto.torreControl.simulacion()
         self.view.listAllSimulacion(l)
 
     def listAllVuelos(self):
+         # Envia al view la información de los vuelos para mostrarla
         allVuelos = self.aeropuerto.printAerolineasVuelos()
         self.view.listAllVuelos(allVuelos)
     
     def listAllAeronaves(self):
+         # Envia al view la información de las naves para mostrarla
         allNaves = self.aeropuerto.torreControl.mostrarAeronaves()
         self.view.listAllAeronave(allNaves)
     
     def listAllPasajeros(self):
+         # Envia al view la información de los pasajeros para mostrarla
         allPasajeros = self.aeropuerto.printPasajeros()
         self.view.listAllPasajero(allPasajeros)
 
     def listALlPuertas(self):
+         # Envia al view la información de las puertas para mostrarla
         allPuertas = self.aeropuerto.torreControl.listPuertas()
         self.view.listPuertas(allPuertas)
 
     def listReserva(self):
+         # Envia al view la información de la reserva para mostrarla
         nombre = self.view.askPasajero()
         if nombre:
             if nombre in self.aeropuerto.pasajeros:
@@ -184,6 +272,7 @@ class TodoController:
                 self.view.showErrorReserva()
 
     def getCountriesData(self,country : str):
+         # Envia al view la información de los paises para mostrarla
         url = f"https://restcountries.com/v3.1/name/{country}"
         response = requests.get(url)
         if response.status_code == 200:
