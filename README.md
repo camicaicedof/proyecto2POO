@@ -2,6 +2,9 @@
 
 Este proyecto de simulación de aeropuerto tiene como objetivo crear una plataforma interactiva que permita a los usuarios experimentar y gestionar un aeropuerto de manera virtual. La simulación abarcará la creación de aeronaves, la gestión de aerolíneas, la planificación de vuelos, la reserva de vuelos, y la simulación detallada de los procesos de vuelo. Además, se proporcionará información esencial sobre diversos países para enriquecer la experiencia del usuario.
 
+## Link a nuestro Aeropuerto:
+https://proyecto2poo.streamlit.app/
+
 ## Características Principales:
 
 En este aeropuerto, los usuarios pueden diseñar y personalizar sus propias aeronaves, incluyendo jets, aviones comerciales y helicópteros. Además, se ofrecen opciones detalladas para la elección de motores, servicios, altitud máxima y otras características que dependerán de la aeronave que se cree.
